@@ -1,10 +1,9 @@
 package cn.dreampie.flyway;
 
-import cn.dreampie.PropertiesUtils;
+import cn.dreampie.PropertiesKit;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.jfinal.kit.PathKit;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +20,12 @@ public class DbConfig {
   private Properties properties;
 
   public DbConfig() {
-    properties = PropertiesUtils.me().loadPropertyFile(config);
+    properties = PropertiesKit.me().loadPropertyFile(config);
   }
 
   public DbConfig(String config) {
     this.config = config;
-    properties = PropertiesUtils.me().loadPropertyFile(config);
+    properties = PropertiesKit.me().loadPropertyFile(config);
   }
 
   public List<String> getAllDbNames() {
@@ -73,10 +72,10 @@ public class DbConfig {
   }
 
   public boolean isClean(String dbName) {
-    return PropertiesUtils.me().loadPropertyFile(config).getProperty("db." + dbName + ".valid.clean", "false").equals("true");
+    return PropertiesKit.me().loadPropertyFile(config).getProperty("db." + dbName + ".valid.clean", "false").equals("true");
   }
 
   public boolean isDev() {
-    return PropertiesUtils.me().loadPropertyFile(config).getProperty("devMode", "false").equals("true");
+    return PropertiesKit.me().loadPropertyFile(config).getProperty("devMode", "false").equals("true");
   }
 }
