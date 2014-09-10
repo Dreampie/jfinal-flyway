@@ -1,4 +1,4 @@
-jfinal-slf4j
+jfinal-flyway
 ============
 
-jfinal  slf4j  log api
+jfinal  flyway  plugin
