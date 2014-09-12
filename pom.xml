@@ -8,6 +8,7 @@
   <artifactId>jfinal-flyway</artifactId>
   <version>0.1</version>
   <packaging>jar</packaging>
+  <name>jfinal-flyway</name>
   <description>jfinal flyway plugins</description>
   <url>https://github.com/Dreampie/jfinal-flyway</url>
 
