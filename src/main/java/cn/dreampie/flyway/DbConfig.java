@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -62,7 +63,7 @@ public class DbConfig {
   }
 
   public boolean migrationFileDirectoryExists(String path) {
-    if (new File(PathKit.getRootClassPath() + path).exists()) {
+    if (PropertiesKit.exist(path)) {
       logger.debug("Directory for migration files found." + path);
       return true;
     } else {
