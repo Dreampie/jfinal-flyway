@@ -62,6 +62,7 @@ public class DbConfig {
     return properties.getProperty("db." + dbName + ".migration.auto", "false").equals("true");
   }
 
+  @Deprecated
   public boolean migrationFileDirectoryExists(String path) {
     if (PropertiesKit.exist(path)) {
       logger.debug("Directory for migration files found." + path);

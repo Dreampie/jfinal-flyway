@@ -18,7 +18,7 @@ public class FlywayPlugin implements IPlugin {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  private String flywayPrefixToMigrationScript = "/db/migration/";
+  private String flywayPrefixToMigrationScript = "classpath:db/migration/";
 
 
   private DbConfig dbConfig;
@@ -44,7 +44,7 @@ public class FlywayPlugin implements IPlugin {
         checkState(dbName);
       }
     }
-    logger.info("flyway inited!");
+    logger.info("flyway start!");
     return true;
   }
 
@@ -54,7 +54,7 @@ public class FlywayPlugin implements IPlugin {
     for (String dbName : dbNames) {
       cleanAutomatically(dbName);
     }
-    logger.info("flyway stoped!");
+    logger.info("flyway stop!");
     return true;
   }
 
@@ -66,19 +66,19 @@ public class FlywayPlugin implements IPlugin {
     Flyway flyway = null;
     for (String dbName : dbSourceMap.keySet()) {
       migrationFilesLocation = flywayPrefixToMigrationScript + dbName;
-      if (dbConfig.migrationFileDirectoryExists(migrationFilesLocation)) {
-        dbSource = dbSourceMap.get(dbName);
-        flyway = new Flyway();
-        flyway.setDataSource(dbSource.url, dbSource.user, dbSource.password);
-        flyway.setLocations(migrationFilesLocation);
-        if (dbConfig.isClean(dbName)) {
-          flyway.setCleanOnValidationError(true);
-        }
-        if (dbConfig.initOnMigrate(dbName)) {
-          flyway.setInitOnMigrate(true);
-        }
-        flywayMap.put(dbName, flyway);
+//      if (dbConfig.migrationFileDirectoryExists(migrationFilesLocation)) {
+      dbSource = dbSourceMap.get(dbName);
+      flyway = new Flyway();
+      flyway.setDataSource(dbSource.url, dbSource.user, dbSource.password);
+      flyway.setLocations(migrationFilesLocation);
+      if (dbConfig.isClean(dbName)) {
+        flyway.setCleanOnValidationError(true);
       }
+      if (dbConfig.initOnMigrate(dbName)) {
+        flyway.setInitOnMigrate(true);
+      }
+      flywayMap.put(dbName, flyway);
+//      }
     }
     return flywayMap;
   }
@@ -101,5 +101,9 @@ public class FlywayPlugin implements IPlugin {
     if (pendingMigrations != null) {
       throw new RuntimeException(dbName + "-" + StringUtils.join(pendingMigrations, ","));
     }
+  }
+
+  public void setFlywayPrefixToMigrationScript(String flywayPrefixToMigrationScript) {
+    this.flywayPrefixToMigrationScript = flywayPrefixToMigrationScript;
   }
 }
