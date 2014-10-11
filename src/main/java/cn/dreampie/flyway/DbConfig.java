@@ -17,7 +17,7 @@ import java.util.*;
 public class DbConfig {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  private String config = "/application.properties";
+  private String config = "application.properties";
   private Properties properties;
 
   public DbConfig() {
